@@ -18,9 +18,7 @@ function App() {
         {/* <Route path="/user" element={<Login />} />
         <Route path="/favorite" element={<Favorite />} /> */}
       </Routes>
-      <button type="button" className=" testBtn">
-        test
-      </button>
+
       <Footer />
     </>
   );

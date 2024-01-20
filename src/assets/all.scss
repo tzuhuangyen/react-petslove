@@ -10,12 +10,14 @@
 @import "/src/assets/style/variables";
 // bs ＿variables.scss default要放在自己的＿variables.scss後面
 @import "bootstrap/scss/bootstrap";
+
 @import "/src/assets/style/reset";
 @import "/src/assets/style/base";
 @import "/src/assets/style/util";
 @import "/src/assets/style/header";
 @import "/src/assets/style/indexBanner";
 @import "/src/assets/style/about";
+@import "/src//assets/style/type";
 @import "/src/assets/style/shop";
 @import "/src/assets/style/footer";
 .testBtn {

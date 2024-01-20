@@ -1,0 +1,76 @@
+// @import "swiper/scss"; // 导入Swiper的SCSS基础样式
+
+// -------start of types-------
+.types {
+  padding-bottom: 24px;
+  background-color: #f7f3ec;
+  h2 {
+    padding-top: 40px;
+    margin-bottom: 32px;
+    font-size: 1.75rem;
+    @include media-breakpoint-up(lg) {
+      font-size: 56px;
+      padding-top: 80px;
+      margin-bottom: 40px;
+    }
+    img {
+      width: 28px;
+      @include media-breakpoint-up(lg) {
+        width: 56px;
+      }
+    }
+  }
+  .card-img-overlay {
+    height: 270px;
+    top: 15%;
+  }
+  .card-title {
+    text-align: center;
+    background-color: $primary;
+    opacity: 0.9;
+    font-size: 32px;
+    padding: 16px;
+  }
+  .card-body {
+    text-align: center;
+    img {
+      width: 18px;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+    .btn {
+      background-color: #f9d6e2;
+      border-radius: 70px;
+      padding: 10px 24px;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+.types {
+  .card {
+    width: 100%;
+    background-color: #f7f3ec;
+    @include media-breakpoint-up(md) {
+      max-width: 70%;
+    }
+    @include media-breakpoint-up(lg) {
+      max-width: 32%;
+    }
+
+    .card-img,
+    .card-img-top {
+      height: 235px;
+    }
+    .card-title {
+      @include media-breakpoint-up(md) {
+        font-size: 34px;
+      }
+    }
+  }
+}
+// -------end of types-------
