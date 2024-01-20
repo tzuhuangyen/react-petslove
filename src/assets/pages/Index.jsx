@@ -1,5 +1,5 @@
 import About from "./About";
-function IndexBanner() {
+function Index() {
   return (
     <>
       <section className="banner container-fluid ">
@@ -8,9 +8,9 @@ function IndexBanner() {
           <div className="slogan d-none d-md-block">
             <div>
               <p className="animate__animated animate__slideInRight animate__slower">
-                100% nature・no artificial preservatives
+                100% nature・No preservatives
               </p>
-              <h2>Homemade pet's snacks</h2>
+              <h2>Homemade snacks</h2>
               <span> Limited Quantity</span>
 
               <span>
@@ -120,7 +120,7 @@ function IndexBanner() {
       <section className="slogan-sm d-sm-block d-md-none">
         <div className="slogan container">
           <div>
-            <p>100% Natural・Without adding any preservatives</p>
+            <p>100% Natural・No preservatives</p>
             <h2>pets snack</h2>
             <span>
               <img src="/react-petslove/images/footprint.png" alt="" />
@@ -152,4 +152,4 @@ function IndexBanner() {
     </>
   );
 }
-export default IndexBanner;
+export default Index;

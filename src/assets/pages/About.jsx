@@ -8,21 +8,21 @@ function About() {
         <div className="container">
           <h2>
             <span>
-              <img src="./assets/images/footprint.png" alt="before" />
+              <img src="/react-petslove/images/footprint.png" alt="before" />
             </span>
-            關於傑西
+            About
             <span>
-              <img src="./assets/images/footprint.png" alt="" />{" "}
+              <img src="/react-petslove/images/footprint.png" alt="" />{" "}
             </span>
           </h2>
           <div className="card align-items-center text-center">
             <img
-              src="./assets/images/about JC1.png"
+              src="/react-petslove/images/about JC1.png"
               className="card-img-top"
-              alt="..."
+              alt="about"
             />
             <div className="card-body">
-              <h5 className="card-title">當天現買食材</h5>
+              <h5 className="card-title">Fresh</h5>
               <p className="card-text">
                 為了主子的健康 傑西幾乎每天凌晨到港口購買新鮮食材 並製作鮮食
               </p>
@@ -30,29 +30,29 @@ function About() {
           </div>
           <div className="card align-items-center text-center">
             <img
-              src="./assets/images/about JC2.png"
+              src="/react-petslove/images/about JC2.png"
               className="card-img-top"
-              alt="..."
+              alt="about"
             />
             <div className="card-body">
-              <h5 className="card-title">不添加任何防腐劑</h5>
+              <h5 className="card-title">No</h5>
               <p className="card-text">
                 傑西細心研究食譜
                 <br />
                 希望不添加防腐劑的鮮食
                 <br />
-                讓11位主子們(5貓6狗)年延益壽！
+                讓11位主子們年延益壽！
               </p>
             </div>
           </div>
           <div className="card align-items-center text-center">
             <img
-              src="./assets/images/about JC1.png"
+              src="/react-petslove/images/about JC1.png"
               className="card-img-top"
               alt="..."
             />
             <div className="card-body">
-              <h5 className="card-title">手工限量製作</h5>
+              <h5 className="card-title">Limited</h5>
               <p className="card-text">
                 所有食品都由傑西親手製作
                 <br />
@@ -67,70 +67,56 @@ function About() {
 
       {/*<!--about jc of md&lg -->*/}
       <div className="about-lg container d-none d-md-block">
-        <h2 className="text-center" data-aos="zoom-in" data-aos-duration="1200">
+        <h2 className="text-center">
           <span>
-            <img src="./assets/images/footprint.png" alt="before" />
+            <img src="/react-petslove/images/footprint.png" alt="before" />
           </span>
-          關於傑西
+          About
           <span>
-            <img src="./assets/images/footprint.png" alt="" />{" "}
+            <img src="/react-petslove/images/footprint.png" alt="" />
           </span>
         </h2>
         <div>
-          <div
-            className="card-body1"
-            data-aos="zoom-in-left"
-            data-aos-duration="1300"
-          >
+          <div className="card-body1">
             <img
               className="aboutImg1"
-              src="./assets/images/about JC1.png"
-              alt=""
+              src="/react-petslove/images/about JC1.png"
+              alt="aboutImg1"
             />
             <div className="card-title">
-              <h3>當天現買食材</h3>
+              <h3>Fresh</h3>
             </div>
             <p className="card-text">
-              為了主子的健康
+              For your pet's health
               <br />
               傑西幾乎每天凌晨到港口購買新鮮食材並製作鮮食
             </p>
           </div>
         </div>
         <div>
-          <div
-            className="card-body2"
-            data-aos="zoom-in-right"
-            data-aos-duration="1400"
-          >
+          <div className="card-body2">
             <img
               className="aboutImg2"
-              src="./assets/images/about JC2.png"
-              alt=""
+              src="/react-petslove/images/about JC2.png"
+              alt="aboutImg2"
             />
             <div className="card-title">
-              <h3>不添加任何防腐劑</h3>
+              <h3>No preservatives</h3>
             </div>
             <p className="card-text">
-              傑西細心研究食譜
-              <br />
               不添加防腐劑的鮮食讓11位主子們(5貓6狗)年延益壽！
             </p>
           </div>
         </div>
         <div>
-          <div
-            className="card-body3"
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-          >
+          <div className="card-body3">
             <img
               className="aboutImg3"
-              src="./assets/images/about JC3.png"
-              alt=""
+              src="/react-petslove/images/about JC3.png"
+              alt="aboutImg3"
             />
             <div className="card-title">
-              <h3>手工限量製作</h3>
+              <h3>Limited Quantity</h3>
             </div>
             <p className="card-text">
               為了主子的健康 所有食品都由傑西親手製作

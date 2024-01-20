@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "./assets/all.scss";
 import Home from "./assets/pages/Home";
-import IndexBanner from "./assets/pages/IndexBanner";
+import Index from "./assets/pages/Index";
 import Header from "./assets/pages/Header";
 import Shop from "./assets/pages/Shop";
 import Footer from "./assets/pages/Footer";
@@ -13,7 +13,7 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path="/react-petslove" element={<IndexBanner />} />
+        <Route path="/react-petslove" element={<Index />} />
         <Route path="/shop" element={<Shop />} />
         {/* <Route path="/user" element={<Login />} />
         <Route path="/favorite" element={<Favorite />} /> */}
