@@ -1,0 +1,97 @@
+.header {
+  background-color: $primary;
+  position: sticky;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  .container {
+    padding: 14px;
+    text-align: center;
+
+    max-width: 1088px;
+    margin: 0 auto;
+  }
+  // .container {
+  //
+  //   @include media-breakpoint-up(md) {
+  //     max-width: 720px;
+  //   }
+  //   @include media-breakpoint-up(lg) {
+  //     max-width: 960px;
+  //   }
+  // }
+}
+/* navbar */
+.logo {
+  margin: 8px;
+}
+.logo a {
+  font-size: 18px;
+  color: #250f0a;
+}
+.logo-search {
+  flex-grow: 1;
+  @include media-breakpoint-up(md) {
+    flex-grow: 0;
+  }
+}
+
+.search {
+  .searchIcon {
+    @include media-breakpoint-up(md) {
+      margin-left: 0;
+    }
+    @include media-breakpoint-up(lg) {
+      margin-left: 10px;
+    }
+  }
+  form {
+    display: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+//search space
+.search {
+  // margin-left: 140px;
+  @include media-breakpoint-up(md) {
+    margin-left: 0;
+  }
+  .form-control {
+    width: 240px;
+    height: 32px;
+    border-radius: 16px;
+    padding: 0;
+    @include media-breakpoint-up(lg) {
+      border-radius: 15px;
+    }
+  }
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $white;
+  padding: 0;
+}
+
+.nav-link {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+form {
+  margin-right: 8px;
+}
+form input::placeholder {
+  font-size: 12px;
+}
+form .form-control {
+  padding: 6px;
+  margin-top: 8px;
+}
+
+.navbar-toggler-icon {
+  color: #ffffff;
+}
