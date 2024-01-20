@@ -5,6 +5,7 @@ import "./assets/all.scss";
 import Home from "./assets/pages/Home";
 import Header from "./assets/pages/Header";
 import Shop from "./assets/pages/Shop";
+import Footer from "./assets/pages/Footer";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
       <button type="button" className=" testBtn">
         test
       </button>
+      <Footer />
     </>
   );
 }
