@@ -1,10 +1,14 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <h1>this is Home page</h1>
+      <div className="container">
+        <Outlet />
+      </div>
+    </>
   );
 }
 
