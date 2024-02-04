@@ -51,6 +51,45 @@ app.post("/carts", async (req, res) => {
   }
 });
 
+//handle update qty.
+app.patch("/carts/:id", async (req, res) => {
+  try {
+    const itemIdToUpdate = req.params.id;
+    const { newqty } = req.body;
+
+    await axios.patch(`http://localhost:3000/carts/${itemIdToUpdate}`, {
+      quantity: newqty,
+    });
+
+    res.json({ success: true, message: "Item quantity updated" });
+  } catch (error) {
+    console.error("Error updating item quantity in cart:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error updating item quantity",
+    });
+  }
+});
+// 處理從購物車刪除的路由
+app.delete("/cart/:id", async (req, res) => {
+  try {
+    const itemIdToDelete = req.params.id;
+
+    await axios.delete(`http://localhost:3000/carts/${itemIdToDelete}`);
+    // 回傳刪除成功的訊息
+    res.json({
+      success: true,
+      message: "Item deleted from cart successfully",
+    });
+  } catch (error) {
+    console.log("Error deleting item from cart:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error deleting item from cart",
+    });
+  }
+});
+
 // 啟動 Express 伺服器
 app.listen(port, () => {
   console.log(`Express server is running on port ${port}`);
