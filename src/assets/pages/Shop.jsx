@@ -7,7 +7,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { CartContext } from "./component/Context";
 import Cart from "./component/Cart";
 
-const cartReducer = useReducer((state, action) => {
+const cartReducer = (state, action) => {
   // 從 state 中解構出的購物車列表
   const { cartList } = state;
   console.log(action);
@@ -137,7 +137,7 @@ const cartReducer = useReducer((state, action) => {
     default:
       return state;
   }
-});
+};
 
 const Shop = () => {
   //add to cart dispatch function
