@@ -29,11 +29,14 @@ const SignUp = () => {
 
   return (
     <div className="form-container">
-      <h1>Sign up</h1>
+      <h2>Sign up</h2>
       <div className="signup-form">
         <form id="form" onSubmit={(e) => e.preventDefault()}>
-          <label htmlFor="username">Username:</label>
+          <label className="label" htmlFor="username">
+            Username:
+          </label>
           <input
+            className="input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             type="email"
@@ -41,8 +44,11 @@ const SignUp = () => {
             required
           />
 
-          <label htmlFor="password">Password:</label>
+          <label className="label" htmlFor="password">
+            Password:
+          </label>
           <input
+            className="input"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -53,24 +59,23 @@ const SignUp = () => {
             title="Enter minimum of 8 characters containing at least one special character such as !@#$%^&*."
             required
           />
-
-          <button
-            type="submit"
-            value="Sign Up"
-            className="form--submit"
-            onClick={handleSignUp}
-          >
-            Sign Up
-          </button>
-          <button>
-            Already have an account?
-            <Link to="/login">Login</Link>
-          </button>
-          <button>
-            Delete your an account?
-            <Link to="/delete">Delete</Link>
-          </button>
         </form>
+        <button
+          type="submit"
+          value="Sign Up"
+          className="form--submit"
+          onClick={handleSignUp}
+        >
+          Sign Up
+        </button>
+        <p className="para">
+          Already have an account?
+          <Link to="/login">Login</Link>
+        </p>
+        {/* <button>
+          Delete your an account?
+          <Link to="/delete">Delete</Link>
+        </button> */}
       </div>
     </div>
   );

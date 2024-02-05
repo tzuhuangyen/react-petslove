@@ -7,7 +7,7 @@ import Index from "./assets/pages/Index";
 import Header from "./assets/pages/Header";
 import Shop from "./assets/pages/Shop";
 import Blog from "./assets/pages/Blog";
-import SignUp from "./assets/pages/Signup";
+import SignUp from "./assets/pages/SignUp";
 
 import Footer from "./assets/pages/Footer";
 function App() {
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/react-petslove" element={<Index />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/user" element={<SignUp />} />
         {/* <Route path="/favorite" element={<Favorite />} /> */}
         <Route path="/blog" element={<Blog />} />
       </Routes>
