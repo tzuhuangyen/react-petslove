@@ -2,18 +2,23 @@
   "users": [
     {
       "id": "1",
-      "username": "a title 1",
+      "username": "test",
       "password": "12345678"
     },
     {
-      "username": "y3@gmail.com",
-      "password": "12345678@@@",
-      "id": "0ES4vxq"
+      "username": "test2",
+      "password": "secretpassword",
+      "id": "272adQ7"
     },
     {
-      "username": "yyy@hotmail.com",
-      "password": "11111111@@",
-      "id": "4Sc_F8j"
+      "username": "yyy@gmail.com",
+      "password": "111111",
+      "id": "HHWw2rg"
+    },
+    {
+      "username": "zzz@gmail.com",
+      "password": "123456",
+      "id": "TG0tC3L"
     }
   ],
   "products": [
@@ -136,6 +141,13 @@
       "price": 8.49,
       "total": 8.49,
       "id": "5Ri2DlY"
+    },
+    {
+      "productName": " chicken 1",
+      "quantity": 1,
+      "price": 10.99,
+      "total": 10.99,
+      "id": "8ZVgIUo"
     }
   ]
 }

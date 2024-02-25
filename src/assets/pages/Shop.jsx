@@ -233,7 +233,7 @@ const Shop = () => {
     setSortPrice((prevSort) => (prevSort === "asc" ? "desc" : "asc"));
   };
 
-  //check item is already in favorite list
+  //check item is already in favorite list and save it in the localstorage
   const isFavorite = (productId) => favorites.includes(productId);
   // add item favorite function
   const toggleFavorite = (productId) => {

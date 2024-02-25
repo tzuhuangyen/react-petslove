@@ -7,6 +7,12 @@ export default defineConfig({
   base: "/react-petslove",
   plugins: [react()],
 
+  build: {
+    rollupOptions: {
+      input: "src/main.jsx",
+    },
+  },
+
   server: {
     proxy: {
       "/api": "http://localhost:3000",
