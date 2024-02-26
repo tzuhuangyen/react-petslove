@@ -1,21 +1,4 @@
 {
-  "users": [
-    {
-      "id": "1",
-      "username": "a title 1",
-      "password": "12345678"
-    },
-    {
-      "username": "y3@gmail.com",
-      "password": "12345678@@@",
-      "id": "0ES4vxq"
-    },
-    {
-      "username": "yyy@hotmail.com",
-      "password": "11111111@@",
-      "id": "4Sc_F8j"
-    }
-  ],
   "products": [
     {
       "id": "1",
@@ -104,38 +87,6 @@
       "price": 16.99,
       "type": "other",
       "order": "customized"
-    }
-  ],
-  "carts": [
-    {
-      "user_Id": "1",
-      "productName": "test",
-      "id": "q50VYfP1",
-      "quantity": 5,
-      "price": 10,
-      "total": 20
-    },
-    {
-      "user_Id": "2",
-      "productName": "pork 3",
-      "quantity": 1,
-      "price": 8.49,
-      "total": 8.49,
-      "id": "iXSrcKj"
-    },
-    {
-      "productName": "beef 2",
-      "quantity": 1,
-      "price": 12.99,
-      "total": 12.99,
-      "id": "JMUcaTl"
-    },
-    {
-      "productName": "pork 3",
-      "quantity": 1,
-      "price": 8.49,
-      "total": 8.49,
-      "id": "5Ri2DlY"
     }
   ]
 }
