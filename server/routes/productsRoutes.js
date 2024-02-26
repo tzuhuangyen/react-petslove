@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductModel = require('./routes/productModel');
+const ProductModel = require('../models/productModel');
 
 // GET 请求处理程序，用于获取所有产品数据
 router.get('/api/products', async (req, res) => {

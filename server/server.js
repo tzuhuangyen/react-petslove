@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 // const mongoString =
 //   process.env.MONGODB__CONNECT_URL || 'mongodb://localhost:27017';
 //backend port
-// 使用 mongoose.connect() 连接到 MongoDB 数据库
+// 使用 mongoose.connect() BE连接到 MongoDB 数据库
 const connectDB = require('./connectMongo');
 
 // const connectDB = async () => {
@@ -97,10 +97,24 @@ app.use(cors());
 //     console.error('Error parsing products JSON file:', parseError);
 //   }
 // });
+// 引入用户路由
+const userRouter = require('./routes/userRoutes');
+// 将用户路由挂载到 /api/users 路径下
+app.use('/api/datas', userRouter);
+// 日志中间件
+app.use((req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
+  next();
+});
+// 404 错误处理程序
+app.use((req, res, next) => {
+  res.status(404).send("Sorry can't find that!");
+});
 
-const router = require('./routes/userRoutes');
-
-app.use('/api', router);
+// 引入产品路由
+// const productsRouter = require('./routes/productsRoutes');
+// 将产品路由挂载到 /api/products 路径下
+// app.use('/api/products', productsRouter);
 //get / welcome page test
 // app.get('/hello', (req, res) => {
 //   res.status(200).json({ mssg: 'Hello World' });

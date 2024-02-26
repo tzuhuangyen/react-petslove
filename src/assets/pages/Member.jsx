@@ -10,26 +10,26 @@ function Member() {
   const [userId, setUserId] = useState(null); // 在组件中定义状态来存储用户ID
   const navigate = useNavigate();
 
-  const handleDeleteAccount = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Token not found in local storage');
-        return;
-      }
+  // const handleDeleteAccount = async () => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     if (!token) {
+  //       console.error('Token not found in local storage');
+  //       return;
+  //     }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.delete('/api/datas/delete', config);
-      console.log(response.data);
-      alert('Your account has been deleted.');
-    } catch (error) {
-      console.error('Error deleting account:', error);
-    }
-  };
+  //     const config = {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     };
+  //     const response = await axios.delete('/api/datas/delete', config);
+  //     console.log(response.data);
+  //     alert('Your account has been deleted.');
+  //   } catch (error) {
+  //     console.error('Error deleting account:', error);
+  //   }
+  // };
 
   //用于从令牌中解析出用户ID：
   useEffect(() => {
@@ -45,44 +45,29 @@ function Member() {
 
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
+    if (!newPassword) {
+      alert('Please enter a new password.');
+      return;
+    }
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         console.error('Token not found in local storage');
         return;
       }
-
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
       // 定义数据对象，包含密码
       const data = {
         password: newPassword, // 请替换为您的密码变量或值
       };
 
       // 发送重新登录请求以获取新令牌
-      const response = await axios.post(`/api/datas/login`, data);
-      const newToken = response.data.token;
-      localStorage.setItem('token', newToken); // 存储新令牌
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${newToken}`,
-        },
-      };
-
-      const responseUpdate = await axios.patch(
-        `/api/datas/update/${userId}`,
-        { password: newPassword },
-        config
-      );
-
-      console.log(responseUpdate.data);
-
-      // if (token) {
-      //   const response = await axios.post(`/api/datas/login`, data); // 重新登录获取新令牌
-      //   const newToken = response.data.token;
-      //   localStorage.setItem('token', newToken); // 存储新令牌
-      // }
-
-      // const userId = getUserId(); // 请替换为您的获取用户ID的函数
+      const response = await axios.patch(`/api/datas/update`, data, config);
+      console.log(response.data);
 
       alert('Your password has been updated.');
       setTimeout(() => {

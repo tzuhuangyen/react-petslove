@@ -18,7 +18,7 @@ function generateToken(user) {
 }
 
 //find/get all users
-router.get('/datas', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const data = await UserModel.find();
     res.json(data);
@@ -28,7 +28,7 @@ router.get('/datas', async (req, res) => {
 });
 
 // Post /signup 註冊功能
-router.post('/datas', async (req, res) => {
+router.post('/', async (req, res) => {
   console.log('Received registration request:', req.body);
   try {
     // 處理註冊的邏輯
@@ -59,7 +59,7 @@ router.post('/datas', async (req, res) => {
 });
 
 // Post /login登入功能
-router.post('/datas/login', async (req, res) => {
+router.post('/login', async (req, res) => {
   // 從 POST 請求的 body 中取得使用者提供的資訊
   const { username, password } = req.body;
   console.log('Received login request:', username); // 输出收到的用户名
@@ -91,7 +91,7 @@ router.post('/datas/login', async (req, res) => {
 });
 
 //patch / update by id
-router.patch('/datas/update', async (req, res) => {
+router.patch('/update', async (req, res) => {
   try {
     console.log('Received PATCH request:', req.body); // 记录请求体内容
     const token = req.headers.authorization.split(' ')[1]; // 从请求头中获取令牌
@@ -126,7 +126,7 @@ router.patch('/datas/update', async (req, res) => {
 });
 
 //Delete user by id
-router.delete('/datas/delete', async (req, res) => {
+router.delete('/delete', async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const { username, password } = req.body;
