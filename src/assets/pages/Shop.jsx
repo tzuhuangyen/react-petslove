@@ -8,140 +8,111 @@ import { CartContext } from './component/Context';
 import Cart from './component/Cart';
 
 const cartReducer = (state, action) => {
-  // 從 state 中解構出的購物車列表
-  const { cartList } = state;
+  // 從 state 中解構出的購物車列表 确保它总是一个数组
+  // 确保 state 不为 null 或 undefined，并给出默认值
+  const { cartList } = state || { cartList: [] };
   console.log(action);
   //用於存儲更新後的購物車列表
   let updatedCartList;
-  //cartItemId: product's ID in the cart list
-  const cartItemId = cartList.findIndex(
-    (item) => item.id === action.payload.id
-  );
-  console.log('index:', cartItemId);
-  let jsonItemId;
 
   switch (action.type) {
     case 'ADD_TO_CART':
       console.log('action:', action);
-      //if no item in the cartList, add to cart list
-      if (cartItemId === -1) {
-        // POST request to add a new item into API cart
-        axios
-          .post('http://localhost:3000/carts', {
-            productName: action.payload.name,
-            quantity: 1,
-            price: action.payload.price,
-            total: action.payload.price,
-          })
-          .then((response) => {
-            console.log('New item added to cart successfully', response.data);
-            // save db.json'cart newItemId ID for change qty
-            jsonItemId = response.data.id;
+      const newItem = action.payload;
+      const existingItem = cartList.find((item) => item.id === newItem.id);
 
-            // Add the new item to the cart list
-            updatedCartList = [
-              ...cartList,
-              { ...action.payload, quantity: 1, id: jsonItemId },
-            ];
-          })
-          .catch(
-            (error) => console.error('Error adding new item to cart:', error)
-            //ReferenceError: dispatch is not defined
-          );
+      if (!existingItem) {
+        updatedCartList = [...cartList, { ...newItem, quantity: 1 }];
       } else {
-        // If item already exists, update its quantity
-        //在卡片內加入購物車按鈕可觸發 找到購物車的index去變更數量
         updatedCartList = cartList.map((item) =>
-          item.id === action.payload.id
+          item.id === newItem.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
-
-        //save data in localstorage
-        localStorage.setItem(
-          'cart',
-          JSON.stringify({ cartList: updatedCartList })
-        );
-
-        return {
-          //購物車列表狀態
-          ...state,
-          cartList: updatedCartList,
-          total: caleTotalPrice(updatedCartList),
-        };
       }
 
-    // case "STORE_ITEM_ID":
-    //   return {
-    //     ...state,
-    //     lastAddedItemId: action.payload,
-    //   };
-    //change qty from cartList
-    // case "CHANGE_CART_QUANTITY":
-    //   //要有兩個ID 一個是購物車的index 一個是db.json id
-    //   //先复制购物车数组避免變更原始購物車列表
-    //   updatedCartList = [...cartList];
-    //   //購物車的indexID product's ID in the cart list
-    //   const cartItemId = updatedCartList.findIndex(
-    //     (item) => item.id === action.payload.id
-    //   );
-    //   // 更新購物車內商品数量
-    //   updatedCartList[cartItemId].quantity = action.payload.quantity;
-    //   // axios.patch update json server's cart data
-    //   axios
-    //     .patch(`http://localhost:3000/carts/${jsonItemId}`, {
-    //       quantity: action.payload.quantity,
-    //       total: action.payload.quantity * updatedCartList[index].price,
-    //     })
-    //     .then((response) =>
-    //       console.log("Cart item updated successfully", response.data)
-    //     )
-    //     .catch((error) => console.error("Error updating cart:", error));
-
-    //   localStorage.setItem(
-    //     "cart",
-    //     JSON.stringify({ cartList: updatedCartList })
-    //   );
-
-    //   return {
-    //     ...state,
-    //     cartList: updatedCartList,
-    //     total: caleTotalPrice(updatedCartList),
-    //   };
-
-    case 'REMOVE_CART_ITEM':
-      const itemIdToRemove = action.payload.id;
-      updatedCartList = cartList.filter((item) => item.id !== itemIdToRemove);
-
-      // Update cart in local storage
-      localStorage.setItem(
-        'cart',
-        JSON.stringify({ cartList: updatedCartList })
-      );
+      localStorage.setItem('cart', JSON.stringify(updatedCartList));
 
       return {
         ...state,
         cartList: updatedCartList,
-        total: caleTotalPrice(updatedCartList),
       };
 
-    // Handle other cases as needed
-    // case "LOAD_CART":
-    //   return {
-    //     ...state,
-    //     cartList: action.payload.cartList,
-    //     total: caleTotalPrice(action.payload.cartList),
-    //   };
+    case 'REMOVE_FROM_CART':
+      const itemIdToRemove = action.payload.id;
+      updatedCartList = cartList.filter((item) => item.id !== itemIdToRemove);
 
-    // Handle other cases as needed
+      localStorage.setItem('cart', JSON.stringify(updatedCartList));
+      return {
+        ...state,
+        cartList: updatedCartList,
+      };
+
     default:
       return state;
   }
 };
 
+// case "STORE_ITEM_ID":
+//   return {
+//     ...state,
+//     lastAddedItemId: action.payload,
+//   };
+//change qty from cartList
+// case "CHANGE_CART_QUANTITY":
+//   //要有兩個ID 一個是購物車的index 一個是db.json id
+//   //先复制购物车数组避免變更原始購物車列表
+//   updatedCartList = [...cartList];
+//   //購物車的indexID product's ID in the cart list
+//   const cartItemId = updatedCartList.findIndex(
+//     (item) => item.id === action.payload.id
+//   );
+//   // 更新購物車內商品数量
+//   updatedCartList[cartItemId].quantity = action.payload.quantity;
+//   // axios.patch update json server's cart data
+//   axios
+//     .patch(`http://localhost:3000/carts/${jsonItemId}`, {
+//       quantity: action.payload.quantity,
+//       total: action.payload.quantity * updatedCartList[index].price,
+//     })
+//     .then((response) =>
+//       console.log("Cart item updated successfully", response.data)
+//     )
+//     .catch((error) => console.error("Error updating cart:", error));
+
+//   localStorage.setItem(
+//     "cart",
+//     JSON.stringify({ cartList: updatedCartList })
+//   );
+
+//   return {
+//     ...state,
+//     cartList: updatedCartList,
+//     total: caleTotalPrice(updatedCartList),
+//   };
+
+// Handle other cases as needed
+// case "LOAD_CART":
+//   return {
+//     ...state,
+//     cartList: action.payload.cartList,
+//     total: caleTotalPrice(action.payload.cartList),
+//   };
+
+// Handle other cases as needed
+//   case 'DEFAULT':
+// return state;
+
+// };
+// }
+
 const Shop = () => {
   //add to cart dispatch function
-  const [state, dispatch] = useReducer(cartReducer, { cartList: [] });
+  const storedCart = JSON.parse(localStorage.getItem('cart'));
+  const defaultCartList = Array.isArray(storedCart) ? storedCart : [];
+  const [state, dispatch] = useReducer(cartReducer, {
+    cartList: defaultCartList,
+  });
   //取得原始資料
   const [jsonData, setJsonData] = useState();
   //search
@@ -170,6 +141,19 @@ const Shop = () => {
       }
     })();
   }, []);
+
+  //取得localstorage data
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(state.cartList));
+  }, [state.cartList]);
+
+  const addToCart = (product) => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
+
+  const removeFromCart = (product) => {
+    dispatch({ type: 'REMOVE_FROM_CART', payload: product });
+  };
 
   //search box component
   const SearchBox = () => {
@@ -418,7 +402,9 @@ const Shop = () => {
                 ))}
               </div>
             </div>
-            <div className='col-md-5'>{/* <Cart /> */}</div>
+            <div className='col-md-5'>
+              <Cart removeFromCart={removeFromCart} />
+            </div>
           </div>
         </div>
       </CartContext.Provider>
