@@ -87,8 +87,9 @@
   color: #fff;
 }
 .btnCart {
+  background-color: #fff;
+  color: $secondary;
   &:hover {
     background-color: $primary;
-    color: #fff;
   }
 }
