@@ -162,15 +162,9 @@ const Shop = () => {
         );
         setJsonData(response.data);
         console.log('jsonData:', response.data);
-        // 確保資料成功加載後再設置 productTypes
-        if (
-          typeof response.data === 'object' &&
-          response.data.hasOwnProperty('products')
-        ) {
-          setProductTypes(Object.values(response.data.products));
-        } else {
-          console.error('Data is not an array:', response.data);
-        }
+
+        // 直接設置 productTypes 為 response.data
+        setProductTypes(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -185,6 +179,11 @@ const Shop = () => {
       setText(keyword); // Update the text state directly
 
       if (keyword !== '') {
+        // 檢查 jsonData 是否是陣列，若不是則轉換為陣列
+        const searchData = Array.isArray(jsonData)
+          ? jsonData
+          : Object.values(jsonData);
+
         const searchProducts = jsonData.filter((product) => {
           return (
             product.name.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -217,16 +216,22 @@ const Shop = () => {
   //handle filter by order type click
   const handleFilters = (type) => {
     let filteredTypes;
+    if (Array.isArray(jsonData)) {
+      if (type !== '') {
+        // 確保 jsonData 是陣列
+        const dataToFilter = Array.isArray(jsonData) ? jsonData : [];
 
-    if (type !== '') {
-      filteredTypes = jsonData.filter((productType) => {
-        return productType.order === type || productType.type === type;
-      });
-      setProductTypes(filteredTypes);
-      console.log('filteredTypes', filteredTypes);
+        filteredTypes = dataToFilter.filter((productType) => {
+          return productType.order === type || productType.type === type;
+        });
+        setProductTypes(filteredTypes);
+        console.log('filteredTypes', filteredTypes);
+      } else {
+        setProductTypes(jsonData);
+        console.log('Data:', jsonData);
+      }
     } else {
-      setProductTypes(jsonData);
-      console.log('Data:', jsonData);
+      console.error('jsonData is not an array:', jsonData);
     }
   };
 
