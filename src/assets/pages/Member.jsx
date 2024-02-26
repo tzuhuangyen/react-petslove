@@ -10,27 +10,6 @@ function Member() {
   const [userId, setUserId] = useState(null); // 在组件中定义状态来存储用户ID
   const navigate = useNavigate();
 
-  const handleDeleteAccount = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Token not found in local storage');
-        return;
-      }
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.delete('/api/datas/delete', config);
-      console.log(response.data);
-      alert('Your account has been deleted.');
-    } catch (error) {
-      console.error('Error deleting account:', error);
-    }
-  };
-
   //用于从令牌中解析出用户ID：
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -77,17 +56,39 @@ function Member() {
       console.error('Error updating password:', error);
     }
   };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Token not found in local storage');
+        return;
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      // 发送带有身份验证头部的 DELETE 请求
+      const response = await axios.delete('/api/datas/delete', config);
+      console.log(response.data);
+      alert('Your account has been deleted.');
+    } catch (error) {
+      console.error('Error deleting account:', error.response);
+    }
+  };
   return (
     <div>
       <div className='container'>
         <div className='row mt-5'>
-          <div className='col-6'>
-            <h3 className=' mb-4'>User Profile</h3>
+          <div className='col-md-6 col-12'>
+            <h3 className=' mb-2'>User Profile</h3>
             <p>username:{username}</p>
-            <p>password:</p>
+            <p>password:{password}</p>
           </div>
-          <div className='col-6'>
-            <h3 className=' mb-4'>update Password</h3>
+          <div className='col-md-6 col-12'>
+            <h3 className=' mt-4 mb-2'>update Password</h3>
             <form
               id='form'
               onSubmit={handlePasswordUpdate}
@@ -105,13 +106,19 @@ function Member() {
                 placeholder='enter new Password'
                 required
               />
-              <button type='submit'>Update</button>
+              <button
+                className='mt-2
+              '
+                type='submit'
+              >
+                Update
+              </button>
             </form>
           </div>
         </div>
 
-        <section className='text-center mt-5 container'>
-          <h2>Delete account</h2>
+        <section className='text-center mt-5 container mb-5'>
+          <h3 className='mb-3'>Delete account</h3>
           <div>
             <label htmlFor='username'>Username:</label>
             <input
@@ -120,6 +127,7 @@ function Member() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              className='mb-2'
             />
           </div>
           <div>
@@ -132,8 +140,9 @@ function Member() {
               required
             />
           </div>
-          <p>Are you sure?</p>
-          <button onClick={handleDeleteAccount}>Delete My Account</button>
+          <button className='mt-2' onClick={handleDeleteAccount}>
+            Delete My Account
+          </button>
         </section>
       </div>
     </div>

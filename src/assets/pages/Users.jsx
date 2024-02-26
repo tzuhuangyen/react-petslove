@@ -5,7 +5,7 @@ import Member from './Member';
 function Users() {
   return (
     <div>
-      <h2>Users</h2>
+      <h2 className='text-center mt-4'>Users</h2>
       <div className='container-lg'>
         <div className='row'>
           <div className='col-lg-6'>
