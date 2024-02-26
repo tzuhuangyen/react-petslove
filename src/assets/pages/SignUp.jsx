@@ -13,17 +13,33 @@ const SignUp = () => {
         username: username,
         password: password,
       };
+      // 设置请求头，指定 Content-Type 为 application/json
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
       // 发送 POST 请求到 /users endpoint
-      const response = await axios.post('/api/users/signup', data);
+      const response = await axios.post('/api/datas', data, config);
       // const baseURL = `http://localhost:5173/react-petslover`;
 
       console.log('User created:', response.data);
-      alert('User registered successfully!');
+      alert('User registered/ sign up successfully!');
       setTimeout(() => {
-        navigate('/users/login');
+        navigate('/react-petslove/users/login');
       }, 500);
     } catch (error) {
-      console.error('Error creating user:', error);
+      if (
+        error.response &&
+        error.response.status === 400 &&
+        error.response.data.message === 'Username already exists'
+      ) {
+        // 显示用户名已存在的提示信息给用户
+        alert('This username has already been registered.');
+      } else {
+        // 其他错误情况，打印错误消息到控制台
+        console.error('Error creating user:', error);
+      }
     }
   };
 

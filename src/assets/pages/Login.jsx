@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // 假設你使用了 React Router
+import { Link, useNavigate } from 'react-router-dom'; // 假設你使用了 React Router
 import axios from 'axios';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogIn = async () => {
     try {
-      const baseURL = `http://localhost:5173/users`;
+      // const baseURL = `http://localhost:5173/users`;
       const data = {
         username: username,
         password: password,
       };
 
-      // 发送 POST 请求到 /users/login endpoint
-      const response = await axios.post(`${baseURL}/users/login`, data);
+      // 发送 POST 请求到 /login endpoint
+      const response = await axios.post(`/api/datas/login`, data);
+      const token = response.data.token;
 
-      console.log('User logged in:', response.data);
       alert('User logged in successfully!');
-      // 在這裡處理登入成功後的跳轉等操作
+      // 登录成功，存储令牌并重定向到用户资料页面
+      localStorage.setItem('token', token);
+      console.log('User logged in:', response.data);
+      setTimeout(() => {
+        navigate('/react-petslove/users/member');
+      }, 500);
     } catch (error) {
       console.error('Error logging in:', error);
       // 在這裡處理登入失敗的情況，例如顯示錯誤訊息

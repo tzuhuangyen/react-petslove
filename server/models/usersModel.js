@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+// 假设 UserModel Schema 包含一个名为 password 的字段
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -14,4 +16,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
+    const match = await bcrypt.compare(candidatePassword, this.password);
+    return match;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 module.exports = mongoose.model('Data', userSchema);

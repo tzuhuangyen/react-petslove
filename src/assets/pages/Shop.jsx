@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useReducer } from "react";
-import { useContext } from "react";
-import axios from "axios";
-import { CiShoppingCart } from "react-icons/ci";
-import { MdFavoriteBorder } from "react-icons/md";
+import React, { useState, useEffect, useReducer } from 'react';
+import { useContext } from 'react';
+import axios from 'axios';
+import { CiShoppingCart } from 'react-icons/ci';
+import { MdFavoriteBorder } from 'react-icons/md';
 // import CartNavbar from "../components/CartNavbar";
-import { CartContext } from "./component/Context";
-import Cart from "./component/Cart";
+import { CartContext } from './component/Context';
+import Cart from './component/Cart';
 
 const cartReducer = (state, action) => {
   // 從 state 中解構出的購物車列表
@@ -17,24 +17,24 @@ const cartReducer = (state, action) => {
   const cartItemId = cartList.findIndex(
     (item) => item.id === action.payload.id
   );
-  console.log("index:", cartItemId);
+  console.log('index:', cartItemId);
   let jsonItemId;
 
   switch (action.type) {
-    case "ADD_TO_CART":
-      console.log("action:", action);
+    case 'ADD_TO_CART':
+      console.log('action:', action);
       //if no item in the cartList, add to cart list
       if (cartItemId === -1) {
         // POST request to add a new item into API cart
         axios
-          .post("http://localhost:3000/carts", {
+          .post('http://localhost:3000/carts', {
             productName: action.payload.name,
             quantity: 1,
             price: action.payload.price,
             total: action.payload.price,
           })
           .then((response) => {
-            console.log("New item added to cart successfully", response.data);
+            console.log('New item added to cart successfully', response.data);
             // save db.json'cart newItemId ID for change qty
             jsonItemId = response.data.id;
 
@@ -45,7 +45,7 @@ const cartReducer = (state, action) => {
             ];
           })
           .catch(
-            (error) => console.error("Error adding new item to cart:", error)
+            (error) => console.error('Error adding new item to cart:', error)
             //ReferenceError: dispatch is not defined
           );
       } else {
@@ -59,7 +59,7 @@ const cartReducer = (state, action) => {
 
         //save data in localstorage
         localStorage.setItem(
-          "cart",
+          'cart',
           JSON.stringify({ cartList: updatedCartList })
         );
 
@@ -109,13 +109,13 @@ const cartReducer = (state, action) => {
     //     total: caleTotalPrice(updatedCartList),
     //   };
 
-    case "REMOVE_CART_ITEM":
+    case 'REMOVE_CART_ITEM':
       const itemIdToRemove = action.payload.id;
       updatedCartList = cartList.filter((item) => item.id !== itemIdToRemove);
 
       // Update cart in local storage
       localStorage.setItem(
-        "cart",
+        'cart',
         JSON.stringify({ cartList: updatedCartList })
       );
 
@@ -149,7 +149,7 @@ const Shop = () => {
   //filter
   const [productTypes, setProductTypes] = useState([]);
   //sort price
-  const [sortPrice, setSortPrice] = useState("asc");
+  const [sortPrice, setSortPrice] = useState('asc');
   //toggleFavorite function
   const [favorites, setFavorites] = useState([]);
 
@@ -157,12 +157,12 @@ const Shop = () => {
   useEffect(() => {
     (async () => {
       try {
-        const datas = await axios.get("http://localhost:3000/products");
+        const response = await axios.get('/api/products');
         setJsonData(datas.data);
-        setProductTypes(datas.data);
-        console.log("jsonData:", datas.data);
+        setProductTypes(response.data);
+        // console.log('jsonData:', datas.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     })();
   }, []);
@@ -174,7 +174,7 @@ const Shop = () => {
       const keyword = event.target.value;
       setText(keyword); // Update the text state directly
 
-      if (keyword !== "") {
+      if (keyword !== '') {
         const searchProducts = jsonData.filter((product) => {
           return (
             product.name.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -189,15 +189,15 @@ const Shop = () => {
 
     return (
       <>
-        <div className="mb-3">
-          <label htmlFor="search"></label>
+        <div className='mb-3'>
+          <label htmlFor='search'></label>
           <input
-            id="search"
-            type="search"
-            className="form-control productSearch"
+            id='search'
+            type='search'
+            className='form-control productSearch'
             value={text}
             onChange={searchHandler}
-            placeholder="search...beef?pork?"
+            placeholder='search...beef?pork?'
           />
         </div>
       </>
@@ -208,15 +208,15 @@ const Shop = () => {
   const handleFilters = (type) => {
     let filteredTypes;
 
-    if (type !== "") {
+    if (type !== '') {
       filteredTypes = jsonData.filter((productType) => {
         return productType.order === type || productType.type === type;
       });
       setProductTypes(filteredTypes);
-      console.log("filteredTypes", filteredTypes);
+      console.log('filteredTypes', filteredTypes);
     } else {
       setProductTypes(jsonData);
-      console.log("Data:", jsonData);
+      console.log('Data:', jsonData);
     }
   };
 
@@ -225,12 +225,12 @@ const Shop = () => {
     const sortedProducts = [...productTypes];
 
     sortedProducts.sort((a, b) =>
-      sortPrice === "asc" ? b.price - a.price : a.price - b.price
+      sortPrice === 'asc' ? b.price - a.price : a.price - b.price
     );
-    console.log("Sorted Products:", sortedProducts);
+    console.log('Sorted Products:', sortedProducts);
 
     setProductTypes(sortedProducts);
-    setSortPrice((prevSort) => (prevSort === "asc" ? "desc" : "asc"));
+    setSortPrice((prevSort) => (prevSort === 'asc' ? 'desc' : 'asc'));
   };
 
   //check item is already in favorite list and save it in the localstorage
@@ -250,21 +250,21 @@ const Shop = () => {
     //update state
     setFavorites(updatedFavorites);
     //update local storage
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-    console.log("Updated Favorites:", updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    console.log('Updated Favorites:', updatedFavorites);
   };
   // get favorites data and load the favorites from local storage when the component mounts.
   useEffect(() => {
     // Load favorites & cart from local storage
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || {
+    const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || {
       cartList: [],
     };
 
     setFavorites(storedFavorites);
-    dispatch({ type: "LOAD_CART", payload: storedCart });
-    console.log("Favorites:", favorites);
-    console.log("Cart:", storedCart);
+    dispatch({ type: 'LOAD_CART', payload: storedCart });
+    console.log('Favorites:', favorites);
+    console.log('Cart:', storedCart);
   }, [dispatch]);
 
   // filter favorite function
@@ -280,37 +280,37 @@ const Shop = () => {
     const isProductFavorite = isFavorite(productType.id);
 
     return (
-      <div className="col">
-        <div className="card mb-4 shadow-sm productCard">
+      <div className='col'>
+        <div className='card mb-4 shadow-sm productCard'>
           <img
             src={productType.img_url}
-            className="card-img-top object-fit "
-            alt="product"
+            className='card-img-top object-fit '
+            alt='product'
           />
-          <div className="card-body">
-            <p className="card-title">
+          <div className='card-body'>
+            <p className='card-title'>
               {productType.name}
-              <span className="card-text float-end">${productType.price}</span>
+              <span className='card-text float-end'>${productType.price}</span>
             </p>
-            <div className="d-flex justify-content-between align-end  ">
-              <p className="card-text">Type: {productType.type}</p>
-              <span className="card-text">{productType.order}</span>
+            <div className='d-flex justify-content-between align-end  '>
+              <p className='card-text'>Type: {productType.type}</p>
+              <span className='card-text'>{productType.order}</span>
             </div>
-            <div className="btns cardBtns">
+            <div className='btns cardBtns'>
               <button
                 className={`btnHeart btn-purple-outline ${
-                  isProductFavorite ? "favorited" : ""
+                  isProductFavorite ? 'favorited' : ''
                 }`}
                 onClick={() => toggleFavorite(productType.id)}
               >
                 <MdFavoriteBorder />
               </button>
               <button
-                type="button"
-                className=" btnCart"
+                type='button'
+                className=' btnCart'
                 onClick={() => {
                   dispatch({
-                    type: "ADD_TO_CART",
+                    type: 'ADD_TO_CART',
                     payload: { ...productType, quantity: 1 },
                   });
                 }}
@@ -319,7 +319,7 @@ const Shop = () => {
               </button>
             </div>
           </div>
-        </div>{" "}
+        </div>{' '}
       </div>
     );
   };
@@ -328,72 +328,72 @@ const Shop = () => {
     <>
       {/*JSON.stringify(productTypes)*/}
       <CartContext.Provider value={{ cartReducer, state, dispatch }}>
-        <div className="container-lg">
+        <div className='container-lg'>
           {/* <CartNavbar /> */}
           <SearchBox />
-          <div className="filterbtns mb-4 d-flex justify-content-between align-items-center">
-            <div className="typeBtns">
+          <div className='filterbtns mb-4 d-flex justify-content-between align-items-center'>
+            <div className='typeBtns'>
               <button
-                id="filter-preOrder"
-                onClick={() => handleFilters("order")}
+                id='filter-preOrder'
+                onClick={() => handleFilters('order')}
               >
                 order
               </button>
               <button
-                id="filter-inStock"
-                className="btn-purple"
-                onClick={() => handleFilters("in-stock")}
+                id='filter-inStock'
+                className='btn-purple'
+                onClick={() => handleFilters('in-stock')}
               >
                 in-stock
               </button>
               <button
-                id="filter-customized"
-                onClick={() => handleFilters("customized")}
+                id='filter-customized'
+                onClick={() => handleFilters('customized')}
               >
                 customized
               </button>
               <button
-                id="filter-chicken"
-                onClick={() => handleFilters("chicken")}
+                id='filter-chicken'
+                onClick={() => handleFilters('chicken')}
               >
                 chicken
               </button>
-              <button id="filter-beef" onClick={() => handleFilters("beef")}>
+              <button id='filter-beef' onClick={() => handleFilters('beef')}>
                 beef
               </button>
-              <button id="filter-duck" onClick={() => handleFilters("duck")}>
+              <button id='filter-duck' onClick={() => handleFilters('duck')}>
                 duck
               </button>
-              <button id="reset" onClick={() => handleFilters("")}>
+              <button id='reset' onClick={() => handleFilters('')}>
                 Reset
               </button>
             </div>
             {/* Sort dropdown */}
-            <div className=" sortBtn">
-              <label htmlFor="sortSelect">Sort:</label>
+            <div className=' sortBtn'>
+              <label htmlFor='sortSelect'>Sort:</label>
               <select
-                id="sortSelect"
-                className="filterSelect"
-                defaultValue={"increase"}
+                id='sortSelect'
+                className='filterSelect'
+                defaultValue={'increase'}
                 onChange={(e) => handleSortPrice(e.target.value)}
               >
-                <option value="asc">Low to High </option>
-                <option value="desc"> High to Low</option>
+                <option value='asc'>Low to High </option>
+                <option value='desc'> High to Low</option>
               </select>
             </div>
             {/* filter favorite */}
             <button
-              id="filter-favorite"
-              className="filterFavoBtn"
+              id='filter-favorite'
+              className='filterFavoBtn'
               onClick={() => filterFavorites()}
             >
               <MdFavoriteBorder />
             </button>
           </div>
           {/* Filter by order result content */}
-          <div className="row">
-            <div className="col-md-7">
-              <div className="row row-cols-3 g-3">
+          <div className='row'>
+            <div className='col-md-7'>
+              <div className='row row-cols-3 g-3'>
                 {productTypes.map((productType, index) => (
                   <CreateDataCard
                     productType={productType}
@@ -402,7 +402,7 @@ const Shop = () => {
                 ))}
               </div>
             </div>
-            <div className="col-md-5">
+            <div className='col-md-5'>
               <Cart />
             </div>
           </div>

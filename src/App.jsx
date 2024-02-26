@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './assets/all.scss';
@@ -15,6 +15,8 @@ import Member from './assets/pages/Member';
 import Footer from './assets/pages/Footer';
 
 function App() {
+  const [usersData, setUsersData] = useState([]);
+
   useEffect(() => {
     async function getUsers() {
       try {
@@ -23,6 +25,7 @@ function App() {
           throw new Error('Failed to fetch');
         }
         const usersData = await res.json();
+        setUsersData(usersData);
         console.log(usersData);
       } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -47,6 +50,19 @@ function App() {
       </Routes>
 
       <Footer />
+      <div className='container-lg'>
+        <h2>all users' data for backend admin</h2>
+        <ul>
+          {usersData.map((user) => (
+            <li key={user._id}>
+              <p>user ID:{user._id}</p>
+              <p>username:{user.username}</p>
+              <p>user password:{user.password}</p>
+              <br />
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
